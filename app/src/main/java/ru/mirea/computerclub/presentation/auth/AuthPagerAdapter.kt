@@ -1,4 +1,4 @@
-package ru.mirea.computerclub.presentation
+package ru.mirea.computerclub.presentation.auth
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

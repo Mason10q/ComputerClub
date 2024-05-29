@@ -11,7 +11,7 @@ import ru.mirea.computerclub.domain.AuthUseCaseImpl
 import ru.mirea.computerclub.presentation.auth.AuthViewModel
 
 @Module
-interface AuthComponent {
+interface AuthModule {
 
     @Binds
     fun bindComputerClubRepository(repositoryImpl: ComputerClubRepositoryImpl): ComputerClubRepository

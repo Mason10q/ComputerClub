@@ -1,22 +1,22 @@
-package ru.mirea.computerclub.presentation
+package ru.mirea.computerclub.presentation.auth
 
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ru.mirea.computerclub.App
 import ru.mirea.computerclub.core.isValidEmail
 import ru.mirea.computerclub.core.toastLong
-import ru.mirea.computerclub.databinding.FragmentAuthBinding
 import ru.mirea.computerclub.databinding.FragmentSignupBinding
 import javax.inject.Inject
 
@@ -41,6 +41,7 @@ class SignUpFragment: Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        (context.applicationContext as App?)?.appComponent?.inject(this)
         sp = context.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
     }
 
@@ -77,22 +78,22 @@ class SignUpFragment: Fragment() {
                     return@setOnClickListener
                 }
 
-                if (passwordEdit.text != passwordRepeatEdit.text) {
+                if (passwordEdit.text.toString() != passwordRepeatEdit.text.toString()) {
                     toastLong("Пароли не совпадают")
                     return@setOnClickListener
                 }
 
-                viewModel.signIn(emailEdit.text.toString(), passwordEdit.text.toString(), nameEdit.text.toString(), date!!)
+                viewModel.signUp(emailEdit.text.toString(), passwordEdit.text.toString(), nameEdit.text.toString(), date!!)
             }
         }
     }
 
     private fun validateEdits(): Boolean =
         with(binding) {
-            nameEdit.text.isNullOrEmpty() &&
-            emailEdit.text.isValidEmail() &&
-            passwordEdit.text.isNullOrEmpty() &&
-            passwordRepeatEdit.text.isNullOrEmpty() &&
+            nameEdit.text.isNullOrEmpty() ||
+            emailEdit.text.isNullOrEmpty() ||
+            passwordEdit.text.isNullOrEmpty() ||
+            passwordRepeatEdit.text.isNullOrEmpty() ||
             date.isNullOrEmpty()
         }
 
@@ -101,11 +102,14 @@ class SignUpFragment: Fragment() {
             toastLong(e.message)
         }
 
-        lifecycleScope.launch {
-            viewModel.userId.collect{ userId ->
-                toastLong("Успешно зарегестрирован")
-                sp?.edit()?.putInt("userId", userId ?: -1)
-            }
+        viewModel.userId.observe(viewLifecycleOwner) { userId ->
+            toastLong("Успешно зарегестрирован")
+            sp?.edit()?.putInt("userId", userId ?: -1)?.apply()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

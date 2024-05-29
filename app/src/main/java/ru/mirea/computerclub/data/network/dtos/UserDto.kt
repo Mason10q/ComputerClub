@@ -1,4 +1,4 @@
-package ru.mirea.computerclub.data.network
+package ru.mirea.computerclub.data.network.dtos
 
 import com.google.gson.annotations.SerializedName
 

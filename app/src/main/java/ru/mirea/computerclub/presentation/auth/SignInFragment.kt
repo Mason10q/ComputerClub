@@ -1,4 +1,4 @@
-package ru.mirea.computerclub.presentation
+package ru.mirea.computerclub.presentation.auth
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
+import ru.mirea.computerclub.App
 import ru.mirea.computerclub.core.isValidEmail
 import ru.mirea.computerclub.core.toastLong
-import ru.mirea.computerclub.databinding.FragmentAuthBinding
 import ru.mirea.computerclub.databinding.FragmentSigninBinding
 import javax.inject.Inject
 
@@ -32,6 +32,7 @@ class SignInFragment: Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        (context.applicationContext as App?)?.appComponent?.inject(this)
         sp = context.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
     }
     override fun onCreateView(
@@ -41,18 +42,32 @@ class SignInFragment: Fragment() {
     ): View = FragmentSigninBinding.inflate(inflater, container, false).also { _binding = it }.root
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpObservers()
+        setUpViews()
+    }
+
     private fun setUpViews() {
         with(binding) {
             submitBtn.setOnClickListener{ _ ->
-                if(!validateEdits()) { toastLong("Заполните поля!") }
+                if(validateEdits()) {
+                    toastLong("Заполните поля!")
+                    return@setOnClickListener
+                }
 
-                if(!emailEdit.text.isValidEmail()){ toastLong("Почта введена неверно") }
+                if(!emailEdit.text.isValidEmail()){
+                    toastLong("Почта введена неверно")
+                    return@setOnClickListener
+                }
+
+                viewModel.signIn(binding.emailEdit.text.toString(), binding.passwordEdit.text.toString())
             }
         }
     }
 
     private fun validateEdits() = with(binding) {
-        emailEdit.text.isNullOrEmpty() &&
+        emailEdit.text.isNullOrEmpty() ||
         passwordEdit.text.isNullOrEmpty()
     }
 
@@ -61,16 +76,15 @@ class SignInFragment: Fragment() {
             toastLong(e.message)
         }
 
-        lifecycleScope.launch {
-            viewModel.userId.collect{ userId ->
-                sp?.edit()?.putInt("userId", userId ?: -1)
-                findNavController().navigate()
-            }
+        viewModel.userId.observe(viewLifecycleOwner) { userId ->
+            sp?.edit()?.putInt("userId", userId ?: -1)?.apply()
+            //findNavController().navigate()
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

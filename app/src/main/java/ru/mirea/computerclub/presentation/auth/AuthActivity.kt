@@ -1,51 +1,47 @@
 package ru.mirea.computerclub.presentation.auth
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
+import ru.mirea.computerclub.MainActivity
 import ru.mirea.computerclub.R
-import ru.mirea.computerclub.databinding.FragmentAuthBinding
+import ru.mirea.computerclub.databinding.ActivityAuthBinding
 
-class AuthFragment: Fragment() {
+class AuthActivity: AppCompatActivity() {
 
-    private var _binding: FragmentAuthBinding? = null
-    private val binding get() = _binding!!
 
     private var sp: SharedPreferences? = null
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        sp = context.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).also {
+    private val binding by lazy { ActivityAuthBinding.inflate(layoutInflater) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+        setUpViews()
+
+        sp = this.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).also {
             if(it.getInt("userId", -1) > 0) {
-                //findNavController().navigate()
+                startActivity(Intent(this, MainActivity::class.java))
             }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = FragmentAuthBinding.inflate(layoutInflater).also { _binding = it }.root
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setUpViews()
-    }
-
     private fun setUpViews() {
-        binding.authPager.adapter = activity?.let { AuthPagerAdapter(it) }
+        binding.authPager.adapter = AuthPagerAdapter(this)
 
         TabLayoutMediator(binding.authTabs, binding.authPager) { tab, position ->
             tab.text = when(position) {
-                0 -> context?.getString(R.string.screen_signin_enter)
-                1 -> context?.getString(R.string.screen_signup_register)
+                0 -> this.getString(R.string.screen_signin_enter)
+                1 -> this.getString(R.string.screen_signup_register)
                 else -> ""
             }
         }.attach()

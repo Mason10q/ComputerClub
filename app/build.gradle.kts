@@ -1,20 +1,30 @@
+import buildsrc.Libs
+import buildsrc.Versions
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
     namespace = "ru.mirea.computerclub"
-    compileSdk = 34
+    compileSdk = Versions.compileSdk
 
     defaultConfig {
         applicationId = "ru.mirea.computerclub"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Versions.minSdk
+        targetSdk = Versions.targetSdk
+        versionCode = Versions.versionCode
+        versionName = Versions.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+
+        buildConfigField("String", "ENDPOINT_URL", "\"${properties.getProperty("ENDPOINT_URL")}\"")
     }
 
     buildTypes {
@@ -27,22 +37,42 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Versions.compatibility
+        targetCompatibility = Versions.compatibility
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.jvmTarget
+    }
+    viewBinding {
+        enable = true
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(Libs.AndroidX.core)
+    implementation(Libs.AndroidX.appCompat)
+    implementation(Libs.Google.material)
+    implementation(Libs.AndroidX.constraintlayout)
+    implementation(Libs.AndroidX.fragments)
+    implementation(Libs.AndroidX.navigationUiKtx)
+    implementation(Libs.AndroidX.navigationFragmentKtx)
+    implementation(Libs.AndroidX.paging)
+
+    implementation(Libs.Network.retrofit)
+    implementation(Libs.Network.retrofitGson)
+    implementation(Libs.Network.retrofitFlowAdapter)
+    implementation(Libs.Network.ohttp)
+    implementation(Libs.Network.okhttpLogInter)
+    implementation(platform(Libs.Network.okhttpBom))
+    implementation(Libs.Network.gson)
+
+    implementation(Libs.DI.dagger)
+    kapt(Libs.DI.daggerCompiler)
+
+    implementation(Libs.Kotlin.coroutinesCore)
+    implementation(Libs.Kotlin.coroutinesAndroid)
 }

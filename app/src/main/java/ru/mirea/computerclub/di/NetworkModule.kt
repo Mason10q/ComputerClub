@@ -9,8 +9,8 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit.Builder
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.kasperskiy.translater.data.network.SkyengApi
-import ru.kasperskiy.translater.data.network.retrofit.buildApi
+import ru.mirea.computerclub.data.network.ComputerClubApi
+import ru.mirea.computerclub.data.network.retrofit.buildApi
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -45,7 +45,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideTranslationApi(builder: Builder) = builder.buildApi<SkyengApi>()
+    fun provideTranslationApi(builder: Builder) = builder.buildApi<ComputerClubApi>()
 
 
 }

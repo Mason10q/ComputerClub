@@ -3,7 +3,7 @@ package ru.mirea.computerclub.di
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
-import ru.virtual.core_android.ViewModelFactory
+import ru.mirea.computerclub.core.ViewModelFactory
 
 @Module
 interface CoreModule {

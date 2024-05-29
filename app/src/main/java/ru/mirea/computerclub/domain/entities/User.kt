@@ -1,4 +1,8 @@
 package ru.mirea.computerclub.domain.entities
 
-class User {
-}
+data class User(
+    val email: String,
+    val password: String,
+    val name: String? = null,
+    val birthDate: String? = null
+)

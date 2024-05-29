@@ -1,4 +1,4 @@
-package ru.mirea.computerclub.data.retrofit
+package ru.mirea.computerclub.data.network.retrofit
 
 import retrofit2.Retrofit
 
