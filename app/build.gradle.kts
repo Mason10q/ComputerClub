@@ -75,4 +75,6 @@ dependencies {
 
     implementation(Libs.Kotlin.coroutinesCore)
     implementation(Libs.Kotlin.coroutinesAndroid)
+
+    implementation(Libs.UI.picasso)
 }

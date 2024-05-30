@@ -1,6 +1,7 @@
 package ru.mirea.computerclub.presentation.auth
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.launch
 import ru.mirea.computerclub.App
+import ru.mirea.computerclub.MainActivity
 import ru.mirea.computerclub.core.isValidEmail
 import ru.mirea.computerclub.core.toastLong
 import ru.mirea.computerclub.databinding.FragmentSigninBinding
@@ -20,8 +19,7 @@ import javax.inject.Inject
 
 class SignInFragment: Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by viewModels<AuthViewModel> { viewModelFactory }
 
@@ -78,7 +76,7 @@ class SignInFragment: Fragment() {
 
         viewModel.userId.observe(viewLifecycleOwner) { userId ->
             sp?.edit()?.putInt("userId", userId ?: -1)?.apply()
-            //findNavController().navigate()
+            startActivity(Intent(context, MainActivity::class.java))
         }
     }
 
