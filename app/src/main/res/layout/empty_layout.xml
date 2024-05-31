@@ -15,7 +15,7 @@
 
     <TextView
         android:id="@+id/notify_text"
-        style="@style/Text"
+        style="@style/Text.Title"
         android:gravity="center"
         android:layout_marginTop="26dp"
         android:text="Уведомление"/>

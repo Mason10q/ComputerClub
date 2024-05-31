@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParentWrapContent">
+
+    <ImageView
+        android:id="@+id/computer_photo"
+        style="@style/WrapContent0dp"
+        android:src="@drawable/ic_broken"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/computer_info" />
+
+    <LinearLayout
+        android:id="@+id/computer_info"
+        style="@style/MatchParentWrapContent"
+        android:layout_width="0dp"
+        android:layout_marginLeft="30dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/computer_photo"
+        app:layout_constraintEnd_toStartOf="@id/remove_btn" >
+
+        <TextView
+            android:id="@+id/computer_name"
+            style="@style/Text"
+            android:text="имя имя"/>
+
+        <TextView
+            android:id="@+id/computer_price"
+            style="@style/Text"
+            android:text="Цена: 3000"/>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/remove_btn"
+        style="@style/WrapContent0dp"
+        android:src="@drawable/ic_trash"
+        android:background="@null"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/computer_info"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

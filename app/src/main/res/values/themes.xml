@@ -1,7 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ComputerClub" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.ComputerClub" parent="Theme.AppCompat.NoActionBar">
         <item name="primary_padding_horizontal">@dimen/primary_padding_horizontal</item>
+        <item name="text_primary">@color/black</item>
+        <item name="text_secondary">@color/star_dust</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="accent_primary">@color/turquoise</item>
+        <item name="accent_secondary">@color/red</item>
+        <item name="exc_background_color">@color/white</item>
+        <item name="card_secondary">@color/platinum</item>
+        <item name="button_active_color">@color/black</item>
+        <item name="button_active_text_color">@color/white</item>
+        <item name="button_inactive_color">@color/white</item>
+        <item name="button_inactive_stroke_color">@color/shark</item>
+        <item name="button_inactive_text_color">@color/shark</item>
+        <item name="bottom_nav_color">@color/white</item>
+        <item name="divider_color">@color/grey</item>
     </style>
 
     <style name="Theme.ComputerClub" parent="Base.Theme.ComputerClub" />

@@ -3,4 +3,26 @@
 
     <attr name="primary_padding_horizontal" format="dimension" />
 
+    <attr name="text_primary" format="color" />
+    <attr name="text_secondary" format="color" />
+    <attr name="accent_secondary" format="color" />
+    <attr name="accent_primary" format="color" />
+    <attr name="exc_background_color" format="color" />
+    <attr name="card_secondary" format="color" />
+
+    <attr name="h1_text_size" format="dimension" />
+    <attr name="h2_text_size" format="dimension" />
+    <attr name="h3_text_size" format="dimension" />
+    <attr name="h4_text_size" format="dimension" />
+    <attr name="h5_text_size" format="dimension" />
+    <attr name="h6_text_size" format="dimension" />
+
+    <attr name="button_active_color" format="color" />
+    <attr name="button_active_text_color" format="color" />
+    <attr name="button_inactive_color" format="color" />
+    <attr name="button_inactive_text_color" format="color" />
+    <attr name="button_inactive_stroke_color" format="color" />
+    <attr name="bottom_nav_color" format="color" />
+    <attr name="divider_color" format="color" />
+
 </resources>

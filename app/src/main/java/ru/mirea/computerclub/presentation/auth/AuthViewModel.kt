@@ -5,12 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.mirea.computerclub.data.network.ApiResponse
 import ru.mirea.computerclub.data.network.dtos.UserIdDto
@@ -29,11 +24,16 @@ class AuthViewModel @Inject constructor(
 
     fun signUp(email: String, password: String, name: String, birthDate: String) {
         viewModelScope.launch {
-            authUseCase.signUp(email, password, name, birthDate).flowOn(Dispatchers.IO).collect { res ->
-                when (res) {
-                    is ApiResponse.Success<UserIdDto> -> _userId.postValue(res.data.userId ?: -1)
-                    is ApiResponse.Error -> _error.postValue(res.e)
-                }
+            try {
+                authUseCase.signUp(email, password, name, birthDate).flowOn(Dispatchers.IO)
+                    .collect { res ->
+                        when (res) {
+                            is ApiResponse.Success<UserIdDto> -> _userId.postValue(res.data.userId ?: -1)
+                            is ApiResponse.Error -> _error.postValue(res.e)
+                        }
+                    }
+            } catch (e: Throwable) {
+                _error.postValue(e)
             }
 
         }
@@ -41,13 +41,18 @@ class AuthViewModel @Inject constructor(
 
 
     fun signIn(email: String, password: String) {
-        viewModelScope.launch {
-            authUseCase.signIn(email, password).flowOn(Dispatchers.IO).collect { res ->
-                when(res) {
-                    is ApiResponse.Success<UserIdDto> -> _userId.postValue(res.data.userId ?: -1)
-                    is ApiResponse.Error -> _error.postValue(res.e)
+        try {
+
+            viewModelScope.launch {
+                authUseCase.signIn(email, password).flowOn(Dispatchers.IO).collect { res ->
+                    when (res) {
+                        is ApiResponse.Success<UserIdDto> -> _userId.postValue(res.data.userId ?: -1)
+                        is ApiResponse.Error -> _error.postValue(res.e)
+                    }
                 }
             }
+        } catch (e: Throwable) {
+            _error.postValue(e)
         }
     }
 

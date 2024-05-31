@@ -16,4 +16,17 @@
     <string name="screen_computer_empty_title">Компьютеры не найдены</string>
     <string name="screen_computer_empty_description">Проверьте подключение к интернету или ваш запрос</string>
 
+    <string name="screen_basket_empty_title">Ваша корзина пуста</string>
+    <string name="screen_basket_empty_description">Вы можете добавить их из раздeла \"магазин\"</string>
+    <string name="screen_basket_title">Корзина</string>
+    <string name="screen_basket_price">Цена: %1$d рублей</string>
+
+    <string name="bottom_nav_shop">Магазин</string>
+    <string name="bottom_nav_basket">Корзина</string>
+    <string name="bottom_nav_profile">Профиль</string>
+
+    <string name="dialog_computer_add">В корзину</string>
+    <string name="dialog_computer_remove">Убрать из корзины</string>
+    <string name="dialog_computer_price">Цена: %1$d рублей</string>
+
 </resources>

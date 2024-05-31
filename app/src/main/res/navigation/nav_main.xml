@@ -8,4 +8,8 @@
         android:id="@+id/computersFragment"
         android:name="ru.mirea.computerclub.presentation.computers.ComputersFragment"
         android:label="ComputersFragment" />
+    <fragment
+        android:id="@+id/basketFragment"
+        android:name="ru.mirea.computerclub.presentation.basket.BasketFragment"
+        android:label="BasketFragment" />
 </navigation>

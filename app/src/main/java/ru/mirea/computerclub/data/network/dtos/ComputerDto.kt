@@ -4,9 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class ComputerDto(
     @SerializedName("id")
-    val id: Int?,
+    val computerId: Int?,
     @SerializedName("computer_name")
-    val name: String?,
+    val computerName: String?,
+    @SerializedName("price")
+    val computerPrice: Int?,
+    @SerializedName("description")
+    val computerDescription: String?,
     @SerializedName("photo_url")
-    val photoUrl: String?
+    val computerPhotoUrl: String?
 )

@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/computersFragment"
+        android:title="@string/bottom_nav_shop"
+        android:icon="@drawable/ic_computer"/>
+
+    <item
+        android:id="@+id/basketFragment"
+        android:title="@string/bottom_nav_basket"
+        android:icon="@drawable/ic_basket"/>
+
+    <item
+        android:id="@+id/fragment_profile"
+        android:title="@string/bottom_nav_profile"
+        android:icon="@drawable/ic_person"/>
+
 </menu>

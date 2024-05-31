@@ -9,8 +9,10 @@ import javax.inject.Inject
 class ComputerMapper @Inject constructor(): Mapper<ComputerDto, Computer> {
 
     override fun map(item: ComputerDto): Computer = Computer(
-        item.id ?: -1,
-        item.name ?: "",
-        ("${BuildConfig.ENDPOINT_URL}/${item.photoUrl}")
+        item.computerId ?: -1,
+        item.computerName ?: "",
+        item.computerDescription ?: "",
+        item.computerPrice ?: 0,
+        ("${BuildConfig.ENDPOINT_URL}/${item.computerPhotoUrl}")
     )
 }
