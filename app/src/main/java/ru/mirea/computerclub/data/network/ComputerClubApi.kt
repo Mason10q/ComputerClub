@@ -10,6 +10,7 @@ import retrofit2.http.Query
 import ru.mirea.computerclub.BuildConfig
 import ru.mirea.computerclub.data.network.dtos.ComputerDto
 import ru.mirea.computerclub.data.network.dtos.InBasketDto
+import ru.mirea.computerclub.data.network.dtos.PurchaseDto
 import ru.mirea.computerclub.data.network.dtos.UserDto
 import ru.mirea.computerclub.data.network.dtos.UserIdDto
 import ru.mirea.computerclub.data.network.retrofit.EndpointUrl
@@ -54,6 +55,19 @@ interface ComputerClubApi {
 
     @GET("basket/contains")
     fun isInBasket(@Query("userId") userId: Int, @Query("computerId") computerId: Int): Flow<InBasketDto>
+
+    @GET("profile")
+    fun getProfileData(@Query("userId") userId: Int): Flow<UserDto>
+
+    @POST("basket/buy")
+    suspend fun insertIntoPurchaseHistory(@Query("userId") userId: Int, @Query("computerIds") computerIds: List<Int>)
+
+    @GET("profile/purchase/history")
+    suspend fun getPurchaseHistory(
+        @Query("userId") userId: Int,
+        @Query("page") @IntRange(from = 1) page: Int = 1,
+        @Query("limit") @IntRange(from = 1, to = MAX_PAGE_SIZE.toLong()) pageSize: Int = DEFAULT_PAGE_SIZE
+    ): Response<List<PurchaseDto>>
 
     companion object {
         const val DEFAULT_PAGE_SIZE = 10

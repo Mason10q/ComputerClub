@@ -11,7 +11,7 @@ import javax.inject.Inject
 class BasketAdapter @Inject constructor(private val picasso: Picasso) :
     BasePagingAdapter<Computer, ItemBasketBinding>(DIFF_CALLBACK, ItemBasketBinding::inflate) {
 
-    private var onDelete: ((Int) -> Unit)? = null
+    private var onDelete: ((Int, Int) -> Unit)? = null
 
     override fun bindView(binding: ItemBasketBinding, item: Computer, position: Int) {
         with(binding) {
@@ -27,13 +27,13 @@ class BasketAdapter @Inject constructor(private val picasso: Picasso) :
             computerPrice.text = binding.root.context.getString(R.string.screen_basket_price, item.price)
 
             removeBtn.setOnClickListener{
-                onDelete?.invoke(item.id)
+                onDelete?.invoke(item.id, position)
                 notifyItemRemoved(position)
             }
         }
     }
 
-    fun setOnDeleteClick(listener: (Int) -> Unit) {
+    fun setOnDeleteClick(listener: (Int, Int) -> Unit) {
         onDelete = listener
     }
 

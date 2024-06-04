@@ -77,4 +77,12 @@ dependencies {
     implementation(Libs.Kotlin.coroutinesAndroid)
 
     implementation(Libs.UI.picasso)
+
+
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:4.0.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+    testImplementation("app.cash.turbine:turbine:0.5.2")
+
 }

@@ -13,4 +13,7 @@ interface BasketUseCase {
     suspend fun removeFromBasket(computerId: Int)
 
     fun isInBasket(computerId: Int): Flow<Boolean>
+
+    suspend fun buyComputers(computerIds: List<Int>)
+
 }

@@ -41,6 +41,11 @@ object Versions {
     object Kotlin {
         const val coroutines = "1.3.9"
     }
+
+    object Test {
+        const val junit = "4.13.2"
+        const val mockito = "4.3.1"
+    }
 }
 
 object Libs {
@@ -84,5 +89,10 @@ object Libs {
     object Kotlin {
         const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.Kotlin.coroutines}"
         const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Kotlin.coroutines}"
+    }
+
+    object Test {
+        const val junit = "junit:junit:${Versions.Test.junit}"
+        const val mockito = "org.mockito:mockito-core:${Versions.Test.mockito}"
     }
 }

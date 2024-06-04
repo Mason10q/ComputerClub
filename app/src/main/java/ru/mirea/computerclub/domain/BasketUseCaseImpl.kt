@@ -30,6 +30,9 @@ class BasketUseCaseImpl @Inject constructor(
         pagingSourceFactory = { BasketPagingSource(repository, basketMapper) }
     ).flow
 
+    override suspend fun buyComputers(computerIds: List<Int>) =
+        repository.insertIntoPurchaseHistory(computerIds)
+
     override suspend fun addComputerToBasket(computerId: Int) =
         repository.addComputerToBasket(computerId)
 

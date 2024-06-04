@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/MatchParent">
 
-    <androidx.appcompat.widget.SearchView
+    <SearchView
         android:id="@+id/search_bar"
         style="@style/MatchParentWrapContent"
         android:layout_marginTop="30dp"

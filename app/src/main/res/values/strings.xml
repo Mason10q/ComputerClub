@@ -20,6 +20,7 @@
     <string name="screen_basket_empty_description">Вы можете добавить их из раздeла \"магазин\"</string>
     <string name="screen_basket_title">Корзина</string>
     <string name="screen_basket_price">Цена: %1$d рублей</string>
+    <string name="screen_basket_buy">Оплатить %1$d рублей</string>
 
     <string name="bottom_nav_shop">Магазин</string>
     <string name="bottom_nav_basket">Корзина</string>
@@ -28,5 +29,11 @@
     <string name="dialog_computer_add">В корзину</string>
     <string name="dialog_computer_remove">Убрать из корзины</string>
     <string name="dialog_computer_price">Цена: %1$d рублей</string>
+
+    <string name="screen_profile_title">Профиль</string>
+    <string name="screen_profile_exit">Выйти</string>
+    <string name="screen_profile_history">История покупок</string>
+    <string name="screen_profile_history_empty_title">Ваша история покупок пуста</string>
+    <string name="screen_profile_history_empty_description">Оплатите товары в корзине</string>
 
 </resources>

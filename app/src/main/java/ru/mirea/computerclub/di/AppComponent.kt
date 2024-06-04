@@ -6,6 +6,7 @@ import ru.mirea.computerclub.presentation.auth.SignUpFragment
 import ru.mirea.computerclub.presentation.basket.BasketFragment
 import ru.mirea.computerclub.presentation.computers.ComputerDialog
 import ru.mirea.computerclub.presentation.computers.ComputersFragment
+import ru.mirea.computerclub.presentation.profile.ProfileFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -25,8 +26,8 @@ interface AppComponent {
     fun inject(fragment: SignUpFragment)
     fun inject(fragment: ComputersFragment)
     fun inject(fragment: BasketFragment)
-
     fun inject(fragment: ComputerDialog)
+    fun inject(fragment: ProfileFragment)
 
 
     @Component.Builder

@@ -5,6 +5,7 @@ import retrofit2.Response
 import ru.mirea.computerclub.data.network.ComputerClubApi
 import ru.mirea.computerclub.data.network.dtos.ComputerDto
 import ru.mirea.computerclub.data.network.dtos.InBasketDto
+import ru.mirea.computerclub.data.network.dtos.PurchaseDto
 import ru.mirea.computerclub.data.network.dtos.UserDto
 import javax.inject.Inject
 
@@ -16,6 +17,7 @@ class ComputerClubRepositoryImpl @Inject constructor(
     override suspend fun signIn(user: UserDto) = api.signIn(user)
 
     override suspend fun signUp(user: UserDto) = api.signUp(user)
+    override fun getProfileData(): Flow<UserDto> = api.getProfileData(userId)
 
     override suspend fun removeAccount(userId: Int) = api.removeProfile(userId)
 
@@ -29,4 +31,8 @@ class ComputerClubRepositoryImpl @Inject constructor(
 
     override suspend fun removeFromBasket(computerId: Int) = api.removeFromBasket(userId, computerId)
     override fun isInBasket(computerId: Int): Flow<InBasketDto> = api.isInBasket(userId, computerId)
+
+    override suspend fun getPurchaseHistory(pageNum: Int): Response<List<PurchaseDto>> = api.getPurchaseHistory(userId, pageNum)
+
+    override suspend fun insertIntoPurchaseHistory(computersIds: List<Int>) = api.insertIntoPurchaseHistory(userId, computersIds)
 }

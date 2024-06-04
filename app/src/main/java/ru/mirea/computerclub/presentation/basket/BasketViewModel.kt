@@ -33,5 +33,10 @@ class BasketViewModel @Inject constructor(private val basketUseCase: BasketUseCa
         }
     }
 
+    fun buyComputers(computerIds: List<Int>) {
+        viewModelScope.launch {
+            basketUseCase.buyComputers(computerIds)
+        }
+    }
 
 }

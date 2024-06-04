@@ -5,15 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import kotlinx.coroutines.launch
 import ru.mirea.computerclub.App
 import ru.mirea.computerclub.R
 import ru.mirea.computerclub.core.FooterLoadStateAdapter
 import ru.mirea.computerclub.core.addItemMargins
+import ru.mirea.computerclub.core.toastLong
 import ru.mirea.computerclub.databinding.FragmentBasketBinding
 import javax.inject.Inject
 
@@ -57,8 +60,30 @@ class BasketFragment: Fragment() {
             it.addItemMargins(30, 40)
         }
 
-        adapter.setOnDeleteClick { id -> viewModel.removeFromBasket(id) }
-        adapter.addEmptyLayout(binding.emptyLayout.root)
+        adapter.setOnDeleteClick { id, pos ->
+            viewModel.removeFromBasket(id)
+            binding.buyButton.text = context?.getString(R.string.screen_basket_buy, adapter.snapshot().items.filter { it.id != id }.sumOf { it.price })
+        }
+
+        adapter.addLoadStateListener { loadState ->
+            if(loadState.prepend.endOfPaginationReached) {
+                binding.buyButton.isVisible = adapter.itemCount > 0
+                binding.emptyLayout.root.isVisible = adapter.itemCount < 1
+            }
+
+            binding.buyButton.text = context?.getString(R.string.screen_basket_buy, adapter.snapshot().items.sumOf { it.price })
+        }
+
+        binding.buyButton.setOnClickListener {
+            binding.buyButton.isVisible = false
+            binding.emptyLayout.root.isVisible = true
+            viewModel.buyComputers(adapter.snapshot().items.map { it.id })
+            toastLong("Успешно оплачено!")
+
+            lifecycleScope.launch {
+                adapter.submitData(PagingData.empty())
+            }
+        }
     }
 
     private fun setUpEmptyView() {
@@ -71,7 +96,9 @@ class BasketFragment: Fragment() {
 
     private fun setUpObservers() {
         viewModel.basket.observe(viewLifecycleOwner) { data ->
-            lifecycleScope.launch {  adapter.submitData(data) }
+            lifecycleScope.launch {
+                adapter.submitData(data)
+            }
         }
     }
 

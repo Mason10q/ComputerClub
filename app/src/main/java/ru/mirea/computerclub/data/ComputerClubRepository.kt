@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import ru.mirea.computerclub.data.network.dtos.ComputerDto
 import ru.mirea.computerclub.data.network.dtos.InBasketDto
+import ru.mirea.computerclub.data.network.dtos.PurchaseDto
 import ru.mirea.computerclub.data.network.dtos.UserDto
 import ru.mirea.computerclub.data.network.dtos.UserIdDto
 
@@ -26,4 +27,10 @@ interface ComputerClubRepository {
     suspend fun removeFromBasket(computerId: Int)
 
     fun isInBasket(computerId: Int): Flow<InBasketDto>
+
+    suspend fun getPurchaseHistory(pageNum: Int): Response<List<PurchaseDto>>
+
+    fun getProfileData(): Flow<UserDto>
+
+    suspend fun insertIntoPurchaseHistory(computersIds: List<Int>)
 }
